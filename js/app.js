@@ -10,6 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
             menuActive.classList.add('active');
+            menuActive.classList.add('fade');
         });
     });
 });
