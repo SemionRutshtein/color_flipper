@@ -18,16 +18,21 @@
         <div class="headr__logo-text unselectable"><a href="index.html">Color Flipper!</a></div>
         <nav class="menu">
             <ul class="menu__side unselectable">
-                <li class="menu__side-item">RGB</li>
-                <li class="menu__side-item">HEX</li>
-                <li class="menu__side-item">HLS</li>
+                <li class="menu__side-item rgbNav">RGB</li>
+                <li class="menu__side-item hexNav">HEX</li>
+                <li class="menu__side-item hslNav">HSL</li>
             </ul>
         </nav>
     </header>
     <main>
         <section class="content">
             <div class="content-block">
-                <h1 class="content-block__header unselectable">Pick your color format!</h1>
+                <div class="content-block__alert-positive">Copied Successfull</div>
+                <div class="content-block__alert-pick"></div>
+                <div class="content-block__alert-alert"></div>
+                <h1 class="content-block__header"><input class="unselectable" type="text"
+                        value="Pick your color format!" readonly></h1>
+                <img src="/img/copy-img.png" alt="copy image">
                 <div class="content-block__buttons">
                     <button class="content-block__buttons-item btn1">RGB</button>
                     <button class="content-block__buttons-item btn2">HEX</button>

@@ -56,7 +56,7 @@ body {
             &-item:hover {
                 text-shadow: 0px 1px 2px $white-color;
                 transition: .5s;
-                cursor:pointer;
+                cursor: pointer;
             }
 
             &-item:last-child {
@@ -96,17 +96,71 @@ main {
             flex-direction: column;
             align-items: center;
             padding: 50px 0;
+            position: relative;
+
+            &__alert-positive {
+                display: none;
+                height: 0;
+            }
+
+            &__alert-pick {
+                display: none;
+                height: 0;
+            }
+
+            &__alert-alert {
+                display: none;
+                height: 0;
+            }
+
+            .positive-copy {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                width: 200px;
+                height: 50px;
+                background-color: #1FAB89;
+                right: -100px;
+                top: 0;
+                border-radius: 10px;
+                box-shadow: rgba(31, 171, 137, 0.35) 0px 5px 15px;
+                color: white;
+                font-size: 1.2rem;
+                font-weight: 700;
+            }
 
             &__header {
                 margin: 0;
-                color: $white-color;
-                box-shadow: rgb(0 0 0 / 10%) 0px 4px 12px;
-                position: relative;
-                font-size: 3rem;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
                 background-color: $main-color;
                 border-radius: 15px;
                 padding: 25px;
-                text-shadow: 0px 1px 2px $white-color;
+
+                input {
+                    background-color: $main-color;
+                    border: none;
+                    color: $white-color;
+                    font-size: 3rem;
+                    text-shadow: 0px 1px 2px $white-color;
+                    width: 100%;
+                    margin: 0 auto;
+                    text-align: center;
+                    outline: none;
+                }
+            }
+
+            img {
+                width: 50px;
+                height: 50px;
+                position: absolute;
+                display: none;
+                right: 275px;
+                transform: translateY(50%);
+            }
+
+            img:hover {
+                cursor: pointer;
             }
 
             &__buttons {
