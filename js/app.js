@@ -1,20 +1,25 @@
 window.addEventListener("DOMContentLoaded", () => {
     const body = document.querySelector('body'),
-        buttons = document.querySelectorAll('button'),
+        buttons = document.querySelectorAll('.content-block__buttons button'),
         rgbBtn = document.querySelector('.btn1'),
         hexBtn = document.querySelector('.btn2'),
         hslBtn = document.querySelector('.btn3'),
-        menuActive = document.querySelector('.menu__side'),
-        logoText = document.querySelector('.headr__logo-text'),
+        menuActive = document.querySelector('.top__nav'),
+        logoText = document.querySelector('.top__logo-text'),
         input = document.querySelector('input'),
-        logoA = document.querySelector('.headr__logo-text a'),
+        logoA = document.querySelector('.top__logo-text a'),
         rgbNav = document.querySelector('.rgbNav'),
         hexNav = document.querySelector('.hexNav'),
+        hslNav = document.querySelector('.hslNav'),
         copyImg = document.querySelector('.content-block img'),
         copiedS = body.querySelector('.content-block__alert-positive'),
         pick = body.querySelector('.content-block__alert-pick'),
         pickAlert = body.querySelector('.content-block__alert-alert'),
-        hslNav = document.querySelector('.hslNav');
+        menuBtn = document.querySelector('.hamburger'),
+        mobileMenu = document.querySelector('.mobile__nav'),
+        mobBtn1 = document.querySelector('.mob-btn1'),
+        mobBtn2 = document.querySelector('.mob-btn2'),
+        mobBtn3 = document.querySelector('.mob-btn3');
 
     const hexArray = [
         "#000000",
@@ -694,21 +699,134 @@ window.addEventListener("DOMContentLoaded", () => {
         copyImg.style.display = 'inline-block';
         hexBtn.style.display = 'none';
         hslBtn.style.display = 'none';
-        rgbBtn.innerText = 'Click me';
+        rgbBtn.innerText = 'Generate';
+        menuBtn.classList.add('displblock');
     });
 
     hexBtn.addEventListener('click', () => {
         copyImg.style.display = 'inline-block';
         rgbBtn.style.display = 'none';
         hslBtn.style.display = 'none';
-        hexBtn.innerText = 'Click me';
+        hexBtn.innerText = 'Generate';
+        menuBtn.classList.add('displblock');
     });
 
     hslBtn.addEventListener('click', () => {
         copyImg.style.display = 'inline-block';
         hexBtn.style.display = 'none';
         rgbBtn.style.display = 'none';
-        hslBtn.innerText = 'Click me';
+        hslBtn.innerText = 'Generate';
+        menuBtn.classList.add('displblock');
+    });
+
+    menuBtn.addEventListener('click', function () {
+        body.classList.toggle('ovhidden');
+        menuBtn.classList.toggle('is-active');
+        mobileMenu.classList.toggle('is-active');
+    });
+
+    mobBtn1.addEventListener('click', () => {
+        if (rgbBtn.style.display !== 'none') {
+            pickAlert.style.backgroundColor = '#ff2e63';
+            pickAlert.style.fontWeight = '700';
+            pickAlert.innerText = 'You are on RGB page';
+            pickAlert.style.boxShadow = 'rgba(229, 10, 72, 0.1) 0px 4px 12px';
+            pickAlert.classList.add('positive-copy');
+            setTimeout(() => pickAlert.classList.remove('positive-copy'), 3000);
+            menuBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        } else {
+            hexBtn.style.display = 'none';
+            hslBtn.style.display = 'none';
+            rgbBtn.style.display = 'block';
+            rgbBtn.innerText = 'Generate';
+
+            const rRgbNumber = randomRGBColor();
+
+            input.value = `${rRgbNumber};`;
+            input.style.color = rRgbNumber;
+            input.style.textShadow = `0px 1px 2px ${rRgbNumber}`;
+            body.style.backgroundColor = rRgbNumber;
+
+            pick.style.backgroundColor = '#2B2D2F';
+            pick.innerText = 'You picked RGB format';
+            pick.style.fontWeight = '700';
+            pick.style.boxShadow = 'rgb(0 0 0 / 10%) 0px 4px 12px';
+            pick.classList.add('positive-copy');
+            setTimeout(() => pick.classList.remove('positive-copy'), 3000);
+            menuBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        }
+    });
+
+    mobBtn2.addEventListener('click', () => {
+        if (hexBtn.style.display !== 'none') {
+            pickAlert.style.backgroundColor = '#ff2e63';
+            pickAlert.style.fontWeight = '700';
+            pickAlert.innerText = 'You are on HEX page';
+            pickAlert.style.boxShadow = 'rgba(229, 10, 72, 0.1) 0px 4px 12px';
+            pickAlert.classList.add('positive-copy');
+            setTimeout(() => pickAlert.classList.remove('positive-copy'), 3000);
+            menuBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        } else {
+            hslBtn.style.display = 'none';
+            rgbBtn.style.display = 'none';
+            hexBtn.style.display = 'block';
+            hexBtn.innerText = 'Generate';
+
+            const randomHex = randomHexColor();
+            const colorHex = hexArray[randomHex];
+
+            input.value = `${colorHex};`;
+            input.style.color = colorHex;
+            body.style.backgroundColor = colorHex;
+            input.style.textShadow = `0px 1px 2px ${colorHex}`;
+
+            pick.style.backgroundColor = '#2B2D2F';
+            pick.innerText = 'You picked HEX format';
+            pick.style.fontWeight = '700';
+            pick.style.boxShadow = 'rgb(0 0 0 / 10%) 0px 4px 12px';
+            pick.classList.add('positive-copy');
+            setTimeout(() => pick.classList.remove('positive-copy'), 3000);
+            menuBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        }
+    });
+
+    mobBtn3.addEventListener('click', () => {
+        if (hslBtn.style.display !== 'none') {
+            pickAlert.style.backgroundColor = '#ff2e63';
+            pickAlert.style.fontWeight = '700';
+            pickAlert.innerText = 'You are on HSL page';
+            pickAlert.style.boxShadow = 'rgba(229, 10, 72, 0.1) 0px 4px 12px';
+            pickAlert.classList.add('positive-copy');
+            setTimeout(() => pickAlert.classList.remove('positive-copy'), 3000);
+            menuBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        } else {
+            hexBtn.style.display = 'none';
+            rgbBtn.style.display = 'none';
+            hslBtn.style.display = 'block';
+            hslBtn.innerText = 'Generate';
+
+            const rHsLNumber = randomHslColor();
+
+            input.value = `${rHsLNumber};`;
+            input.style.color = rHsLNumber;
+            body.style.backgroundColor = rHsLNumber;
+
+            input.style.textShadow = `0px 1px 2px ${rHsLNumber}`;
+
+            pick.style.backgroundColor = '#2B2D2F';
+            pick.style.fontWeight = '700';
+            pick.innerText = 'You picked HSL format';
+            pick.style.boxShadow = 'rgb(0 0 0 / 10%) 0px 4px 12px';
+            pick.classList.add('positive-copy');
+            setTimeout(() => pick.classList.remove('positive-copy'), 3000);
+            menuBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        }
     });
 
     rgbBtn.addEventListener('click', () => {
@@ -752,12 +870,14 @@ window.addEventListener("DOMContentLoaded", () => {
             hexBtn.style.display = 'none';
             hslBtn.style.display = 'none';
             rgbBtn.style.display = 'block';
-            rgbBtn.innerText = 'Click me';
+            rgbBtn.innerText = 'Generate';
 
-            input.value = `None`;
-            input.style.color = '#fff';
-            input.style.textShadow = `0px 1px 2px #fff`;
-            body.style.backgroundColor = '#393E46';
+            const rRgbNumber = randomRGBColor();
+
+            input.value = `${rRgbNumber};`;
+            input.style.color = rRgbNumber;
+            input.style.textShadow = `0px 1px 2px ${rRgbNumber}`;
+            body.style.backgroundColor = rRgbNumber;
 
             pick.style.backgroundColor = '#2B2D2F';
             pick.innerText = 'You picked RGB format';
@@ -780,12 +900,15 @@ window.addEventListener("DOMContentLoaded", () => {
             hslBtn.style.display = 'none';
             rgbBtn.style.display = 'none';
             hexBtn.style.display = 'block';
-            hexBtn.innerText = 'Click me';
+            hexBtn.innerText = 'Generate';
 
-            input.value = `None`;
-            input.style.color = '#fff';
-            input.style.textShadow = `0px 1px 2px #fff`;
-            body.style.backgroundColor = '#393E46';
+            const randomHex = randomHexColor();
+            const colorHex = hexArray[randomHex];
+
+            input.value = `${colorHex};`;
+            input.style.color = colorHex;
+            body.style.backgroundColor = colorHex;
+            input.style.textShadow = `0px 1px 2px ${colorHex}`;
 
             pick.style.backgroundColor = '#2B2D2F';
             pick.innerText = 'You picked HEX format';
@@ -808,12 +931,15 @@ window.addEventListener("DOMContentLoaded", () => {
             hexBtn.style.display = 'none';
             rgbBtn.style.display = 'none';
             hslBtn.style.display = 'block';
-            hslBtn.innerText = 'Click me';
+            hslBtn.innerText = 'Generate';
 
-            input.value = `None`;
-            input.style.color = '#fff';
-            input.style.textShadow = `0px 1px 2px #fff`;
-            body.style.backgroundColor = '#393E46';
+            const rHsLNumber = randomHslColor();
+
+            input.value = `${rHsLNumber};`;
+            input.style.color = rHsLNumber;
+            body.style.backgroundColor = rHsLNumber;
+
+            input.style.textShadow = `0px 1px 2px ${rHsLNumber}`;
 
             pick.style.backgroundColor = '#2B2D2F';
             pick.style.fontWeight = '700';
