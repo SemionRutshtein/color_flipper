@@ -963,11 +963,11 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     function changeImage() {
-        copyImg.setAttribute('src', '/img/copy-imgwhite.png');
+        copyImg.setAttribute('src', 'img/copy-imgwhite.png');
     }
 
     function changeImageBack() {
-        copyImg.setAttribute('src', '/img/copy-img.png');
+        copyImg.setAttribute('src', 'img/copy-img.png');
     }
 
     logoText.addEventListener('mouseenter', () => {
