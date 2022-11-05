@@ -951,8 +951,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     copyImg.addEventListener('click', () => {
-        if (input.value !== 'None') {
-            input.select();
+        input.select();
             input.setSelectionRange(0, 99999);
 
             const inputV = input.value;
@@ -961,14 +960,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
             copiedS.classList.add('positive-copy');
             setTimeout(() => copiedS.classList.remove('positive-copy'), 3000);
-        } else {
-            pickAlert.style.backgroundColor = '#ff2e63';
-            pickAlert.style.fontWeight = '700';
-            pickAlert.innerText = 'Firstly generate color!';
-            pickAlert.style.boxShadow = 'rgba(229, 10, 72, 0.1) 0px 4px 12px';
-            pickAlert.classList.add('positive-copy');
-            setTimeout(() => pickAlert.classList.remove('positive-copy'), 3000);
-        }
     });
 
     function changeImage() {
