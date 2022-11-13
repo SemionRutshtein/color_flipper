@@ -1,25 +1,25 @@
 window.addEventListener("DOMContentLoaded", () => {
     const body = document.querySelector('body'),
-        logo = document.querySelector('.top__logo-text a'),
+        logo = body.querySelector('.top__logo-text a'),
         defaultLogoColor = '#00ADB5',
-        input = document.querySelector('.content-block__header input'),
-        mainButtons = document.querySelectorAll('.content-block__buttons button'),
-        rgbBtn = document.querySelector('.btn1'),
-        hexBtn = document.querySelector('.btn2'),
-        hslBtn = document.querySelector('.btn3'),
-        navButtons = document.querySelector('.top__nav'),
-        rgbNav = document.querySelector('.rgbNav'),
-        hexNav = document.querySelector('.hexNav'),
-        hslNav = document.querySelector('.hslNav'),
-        copyImg = document.querySelector('.content-block img'),
+        navButtons = body.querySelector('.top__nav'),
+        navRgbBtn = body.querySelector('.nav-rgb'),
+        navHexBtn = body.querySelector('.nav-hex'),
+        navHslBtn = body.querySelector('.nav-hsl'),
+        hamburgerBtn = body.querySelector('.hamburger'),
+        mobileMenu = body.querySelector('.mobile__nav'),
+        mobRgbBtn = body.querySelector('.mob-rgb'),
+        mobHexBtn = body.querySelector('.mob-hex'),
+        mobHslBtn = body.querySelector('.mob-hsl'),
+        input = body.querySelector('.content-block__header input'),
+        mainButtons = body.querySelectorAll('.content-block__buttons button'),
+        mainRgbBtn = body.querySelector('.main-rgb'),
+        mainHexBtn = body.querySelector('.main-hex'),
+        mainHslBtn = body.querySelector('.main-hsl'),
+        copyImg = body.querySelector('.content-block img'),
         copyAlert = body.querySelector('.content-block__copy-alert'),
         warningAlert = body.querySelector('.content-block__warning-alert'),
-        pickAlert = body.querySelector('.content-block__pick-alert '),
-        mobileMenu = document.querySelector('.mobile__nav'),
-        hamburgerBtn = document.querySelector('.hamburger'),
-        mobBtn1 = document.querySelector('.mob-btn1'),
-        mobBtn2 = document.querySelector('.mob-btn2'),
-        mobBtn3 = document.querySelector('.mob-btn3');
+        pickAlert = body.querySelector('.content-block__pick-alert ');
 
     const hexArray = [
         "#000000",
@@ -756,42 +756,42 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    rgbNav.addEventListener('click', () => {
-        if (rgbBtn.style.display !== 'none') {
+    navRgbBtn.addEventListener('click', () => {
+        if (mainRgbBtn.style.display !== 'none') {
             warningMessage();
         } else {
-            hexBtn.style.display = 'none';
-            hslBtn.style.display = 'none';
-            rgbBtn.style.display = 'block';
-            rgbBtn.innerText = 'Generate';
+            mainHexBtn.style.display = 'none';
+            mainHslBtn.style.display = 'none';
+            mainRgbBtn.style.display = 'block';
+            mainRgbBtn.innerText = 'Generate';
 
             generateRgbColor();
             formatPickMessage('RGB');
         }
     });
 
-    hexNav.addEventListener('click', () => {
-        if (hexBtn.style.display !== 'none') {
+    navHexBtn.addEventListener('click', () => {
+        if (mainHexBtn.style.display !== 'none') {
             warningMessage();
         } else {
-            hslBtn.style.display = 'none';
-            rgbBtn.style.display = 'none';
-            hexBtn.style.display = 'block';
-            hexBtn.innerText = 'Generate';
+            mainHslBtn.style.display = 'none';
+            mainRgbBtn.style.display = 'none';
+            mainHexBtn.style.display = 'block';
+            mainHexBtn.innerText = 'Generate';
 
             generateHexColor();
             formatPickMessage('HEX');
         }
     });
 
-    hslNav.addEventListener('click', () => {
-        if (hslBtn.style.display !== 'none') {
+    navHslBtn.addEventListener('click', () => {
+        if (mainHslBtn.style.display !== 'none') {
             warningMessage();
         } else {
-            hexBtn.style.display = 'none';
-            rgbBtn.style.display = 'none';
-            hslBtn.style.display = 'block';
-            hslBtn.innerText = 'Generate';
+            mainHexBtn.style.display = 'none';
+            mainRgbBtn.style.display = 'none';
+            mainHslBtn.style.display = 'block';
+            mainHslBtn.innerText = 'Generate';
 
             generateHslColor();
             formatPickMessage('HSL');
@@ -806,16 +806,16 @@ window.addEventListener("DOMContentLoaded", () => {
         mobileMenu.classList.toggle('is-active');
     });
 
-    mobBtn1.addEventListener('click', () => {
-        if (rgbBtn.style.display !== 'none') {
+    mobRgbBtn.addEventListener('click', () => {
+        if (mainRgbBtn.style.display !== 'none') {
             warningMessage();
             hamburgerBtn.classList.toggle('is-active');
             mobileMenu.classList.toggle('is-active');
         } else {
-            hexBtn.style.display = 'none';
-            hslBtn.style.display = 'none';
-            rgbBtn.style.display = 'block';
-            rgbBtn.innerText = 'Generate';
+            mainHexBtn.style.display = 'none';
+            mainHslBtn.style.display = 'none';
+            mainRgbBtn.style.display = 'block';
+            mainRgbBtn.innerText = 'Generate';
 
             generateRgbColor();
             formatPickMessage('RGB');
@@ -824,16 +824,16 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    mobBtn2.addEventListener('click', () => {
-        if (hexBtn.style.display !== 'none') {
+    mobHexBtn.addEventListener('click', () => {
+        if (mainHexBtn.style.display !== 'none') {
             warningMessage();
             hamburgerBtn.classList.toggle('is-active');
             mobileMenu.classList.toggle('is-active');
         } else {
-            hslBtn.style.display = 'none';
-            rgbBtn.style.display = 'none';
-            hexBtn.style.display = 'block';
-            hexBtn.innerText = 'Generate';
+            mainHslBtn.style.display = 'none';
+            mainRgbBtn.style.display = 'none';
+            mainHexBtn.style.display = 'block';
+            mainHexBtn.innerText = 'Generate';
 
             generateHexColor();
             formatPickMessage('HEX');
@@ -842,16 +842,16 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    mobBtn3.addEventListener('click', () => {
-        if (hslBtn.style.display !== 'none') {
+    mobHslBtn.addEventListener('click', () => {
+        if (mainHslBtn.style.display !== 'none') {
             warningMessage();
             hamburgerBtn.classList.toggle('is-active');
             mobileMenu.classList.toggle('is-active');
         } else {
-            hexBtn.style.display = 'none';
-            rgbBtn.style.display = 'none';
-            hslBtn.style.display = 'block';
-            hslBtn.innerText = 'Generate';
+            mainHexBtn.style.display = 'none';
+            mainRgbBtn.style.display = 'none';
+            mainHslBtn.style.display = 'block';
+            mainHslBtn.innerText = 'Generate';
 
             generateHslColor();
             formatPickMessage('HSL');
@@ -862,41 +862,41 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // Pick color format and hide other buttons
 
-    rgbBtn.addEventListener('click', () => {
+    mainRgbBtn.addEventListener('click', () => {
         copyImg.style.display = 'inline-block';
-        hexBtn.style.display = 'none';
-        hslBtn.style.display = 'none';
-        rgbBtn.innerText = 'Generate';
+        mainHexBtn.style.display = 'none';
+        mainHslBtn.style.display = 'none';
+        mainRgbBtn.innerText = 'Generate';
         hamburgerBtn.classList.add('displblock');
     });
 
-    hexBtn.addEventListener('click', () => {
+    mainHexBtn.addEventListener('click', () => {
         copyImg.style.display = 'inline-block';
-        rgbBtn.style.display = 'none';
-        hslBtn.style.display = 'none';
-        hexBtn.innerText = 'Generate';
+        mainRgbBtn.style.display = 'none';
+        mainHslBtn.style.display = 'none';
+        mainHexBtn.innerText = 'Generate';
         hamburgerBtn.classList.add('displblock');
     });
 
-    hslBtn.addEventListener('click', () => {
+    mainHslBtn.addEventListener('click', () => {
         copyImg.style.display = 'inline-block';
-        hexBtn.style.display = 'none';
-        rgbBtn.style.display = 'none';
-        hslBtn.innerText = 'Generate';
+        mainHexBtn.style.display = 'none';
+        mainRgbBtn.style.display = 'none';
+        mainHslBtn.innerText = 'Generate';
         hamburgerBtn.classList.add('displblock');
     });
 
     // Generate buttons
 
-    rgbBtn.addEventListener('click', () => {
+    mainRgbBtn.addEventListener('click', () => {
         generateRgbColor();
     });
 
-    hexBtn.addEventListener('click', () => {
+    mainHexBtn.addEventListener('click', () => {
         generateHexColor();
     });
 
-    hslBtn.addEventListener("click", () => {
+    mainHslBtn.addEventListener("click", () => {
         generateHslColor();
     });
 
