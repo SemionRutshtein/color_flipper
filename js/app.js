@@ -1,22 +1,22 @@
 window.addEventListener("DOMContentLoaded", () => {
     const body = document.querySelector('body'),
-        buttons = document.querySelectorAll('.content-block__buttons button'),
+        logo = document.querySelector('.top__logo-text a'),
+        defaultLogoColor = '#00ADB5',
+        input = document.querySelector('.content-block__header input'),
+        mainButtons = document.querySelectorAll('.content-block__buttons button'),
         rgbBtn = document.querySelector('.btn1'),
         hexBtn = document.querySelector('.btn2'),
         hslBtn = document.querySelector('.btn3'),
-        menuActive = document.querySelector('.top__nav'),
-        logoText = document.querySelector('.top__logo-text'),
-        input = document.querySelector('input'),
-        logoA = document.querySelector('.top__logo-text a'),
+        navButtons = document.querySelector('.top__nav'),
         rgbNav = document.querySelector('.rgbNav'),
         hexNav = document.querySelector('.hexNav'),
         hslNav = document.querySelector('.hslNav'),
         copyImg = document.querySelector('.content-block img'),
-        copiedS = body.querySelector('.content-block__alert-positive'),
-        pick = body.querySelector('.content-block__alert-pick'),
-        pickAlert = body.querySelector('.content-block__alert-alert'),
-        menuBtn = document.querySelector('.hamburger'),
+        copyAlert = body.querySelector('.content-block__copy-alert'),
+        warningAlert = body.querySelector('.content-block__warning-alert'),
+        pickAlert = body.querySelector('.content-block__pick-alert '),
         mobileMenu = document.querySelector('.mobile__nav'),
+        hamburgerBtn = document.querySelector('.hamburger'),
         mobBtn1 = document.querySelector('.mob-btn1'),
         mobBtn2 = document.querySelector('.mob-btn2'),
         mobBtn3 = document.querySelector('.mob-btn3');
@@ -664,7 +664,9 @@ window.addEventListener("DOMContentLoaded", () => {
         "#FFC0CB",
     ];
 
-    function randomRGBColor() {
+    // Random colors logic
+
+    function getRandomRGBColor() {
         const r = Math.floor(Math.random() * 256);
         const g = Math.floor(Math.random() * 256);
         const b = Math.floor(Math.random() * 256);
@@ -674,7 +676,7 @@ window.addEventListener("DOMContentLoaded", () => {
         return randomColorElement;
     }
 
-    function randomHslColor() {
+    function getRandomHslColor() {
         const h = Math.floor(Math.random() * 360);
         const s = Math.floor(Math.random() * 101);
         const l = Math.floor(Math.random() * 101);
@@ -684,23 +686,188 @@ window.addEventListener("DOMContentLoaded", () => {
         return randomColorHslElement;
     }
 
-    function randomHexColor() {
+    function getRandomHexColor() {
         return Math.floor(Math.random() * hexArray.length);
     }
 
-    buttons.forEach(btn => {
+    // Random color generator
+
+    function generateRgbColor() {
+        const rRgbNumber = getRandomRGBColor();
+
+        input.value = `${rRgbNumber};`;
+        input.style.color = rRgbNumber;
+        input.style.textShadow = `0px 1px 2px ${rRgbNumber}`;
+        body.style.backgroundColor = rRgbNumber;
+    }
+
+    function generateHexColor() {
+        const randomHex = getRandomHexColor();
+        const colorHex = hexArray[randomHex];
+
+        input.value = `${colorHex};`;
+        input.style.color = colorHex;
+        body.style.backgroundColor = colorHex;
+        input.style.textShadow = `0px 1px 2px ${colorHex}`;
+    }
+
+    function generateHslColor() {
+        const rHsLNumber = getRandomHslColor();
+
+        input.value = `${rHsLNumber};`;
+        input.style.color = rHsLNumber;
+        body.style.backgroundColor = rHsLNumber;
+
+        input.style.textShadow = `0px 1px 2px ${rHsLNumber}`;
+    }
+
+    // Alerts
+
+    function warningMessage() {
+        warningAlert.classList.add('warning-alert__block');
+        setTimeout(() => warningAlert.classList.remove('warning-alert__block'), 3000);
+    }
+
+    function formatPickMessage(colorFormat) {
+        pickAlert.innerText = `You picked ${colorFormat} format`;
+        pickAlert.classList.add('pick-alert__block');
+        setTimeout(() => pickAlert.classList.remove('pick-alert__block'), 3000);
+    }
+
+    // Logo
+
+    logo.addEventListener('mouseenter', () => {
+        const randomColor = getRandomRGBColor();
+        logo.style.color = randomColor;
+        logo.style.textShadow = `1px 1px 4px ${randomColor}`;
+    });
+
+    logo.addEventListener('mouseleave', () => {
+        logo.style.color = defaultLogoColor;
+        logo.style.textShadow = `1px 1px 4px ${defaultLogoColor}`;
+    });
+
+    // Nav menu
+
+    mainButtons.forEach(btn => { // nav menu appears when you go to one of the pages
         btn.addEventListener('click', () => {
-            menuActive.classList.add('active');
-            menuActive.classList.add('fade');
+            navButtons.classList.add('active');
+            navButtons.classList.add('fade');
         });
     });
+
+    rgbNav.addEventListener('click', () => {
+        if (rgbBtn.style.display !== 'none') {
+            warningMessage();
+        } else {
+            hexBtn.style.display = 'none';
+            hslBtn.style.display = 'none';
+            rgbBtn.style.display = 'block';
+            rgbBtn.innerText = 'Generate';
+
+            generateRgbColor();
+            formatPickMessage('RGB');
+        }
+    });
+
+    hexNav.addEventListener('click', () => {
+        if (hexBtn.style.display !== 'none') {
+            warningMessage();
+        } else {
+            hslBtn.style.display = 'none';
+            rgbBtn.style.display = 'none';
+            hexBtn.style.display = 'block';
+            hexBtn.innerText = 'Generate';
+
+            generateHexColor();
+            formatPickMessage('HEX');
+        }
+    });
+
+    hslNav.addEventListener('click', () => {
+        if (hslBtn.style.display !== 'none') {
+            warningMessage();
+        } else {
+            hexBtn.style.display = 'none';
+            rgbBtn.style.display = 'none';
+            hslBtn.style.display = 'block';
+            hslBtn.innerText = 'Generate';
+
+            generateHslColor();
+            formatPickMessage('HSL');
+        }
+    });
+
+    // Hamburger menu
+
+    hamburgerBtn.addEventListener('click', function () {
+        body.classList.toggle('ovhidden');
+        hamburgerBtn.classList.toggle('is-active');
+        mobileMenu.classList.toggle('is-active');
+    });
+
+    mobBtn1.addEventListener('click', () => {
+        if (rgbBtn.style.display !== 'none') {
+            warningMessage();
+            hamburgerBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        } else {
+            hexBtn.style.display = 'none';
+            hslBtn.style.display = 'none';
+            rgbBtn.style.display = 'block';
+            rgbBtn.innerText = 'Generate';
+
+            generateRgbColor();
+            formatPickMessage('RGB');
+            hamburgerBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        }
+    });
+
+    mobBtn2.addEventListener('click', () => {
+        if (hexBtn.style.display !== 'none') {
+            warningMessage();
+            hamburgerBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        } else {
+            hslBtn.style.display = 'none';
+            rgbBtn.style.display = 'none';
+            hexBtn.style.display = 'block';
+            hexBtn.innerText = 'Generate';
+
+            generateHexColor();
+            formatPickMessage('HEX');
+            hamburgerBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        }
+    });
+
+    mobBtn3.addEventListener('click', () => {
+        if (hslBtn.style.display !== 'none') {
+            warningMessage();
+            hamburgerBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        } else {
+            hexBtn.style.display = 'none';
+            rgbBtn.style.display = 'none';
+            hslBtn.style.display = 'block';
+            hslBtn.innerText = 'Generate';
+
+            generateHslColor();
+            formatPickMessage('HSL');
+            hamburgerBtn.classList.toggle('is-active');
+            mobileMenu.classList.toggle('is-active');
+        }
+    });
+
+    // Pick color format and hide other buttons
 
     rgbBtn.addEventListener('click', () => {
         copyImg.style.display = 'inline-block';
         hexBtn.style.display = 'none';
         hslBtn.style.display = 'none';
         rgbBtn.innerText = 'Generate';
-        menuBtn.classList.add('displblock');
+        hamburgerBtn.classList.add('displblock');
     });
 
     hexBtn.addEventListener('click', () => {
@@ -708,7 +875,7 @@ window.addEventListener("DOMContentLoaded", () => {
         rgbBtn.style.display = 'none';
         hslBtn.style.display = 'none';
         hexBtn.innerText = 'Generate';
-        menuBtn.classList.add('displblock');
+        hamburgerBtn.classList.add('displblock');
     });
 
     hslBtn.addEventListener('click', () => {
@@ -716,271 +883,38 @@ window.addEventListener("DOMContentLoaded", () => {
         hexBtn.style.display = 'none';
         rgbBtn.style.display = 'none';
         hslBtn.innerText = 'Generate';
-        menuBtn.classList.add('displblock');
+        hamburgerBtn.classList.add('displblock');
     });
 
-    menuBtn.addEventListener('click', function () {
-        body.classList.toggle('ovhidden');
-        menuBtn.classList.toggle('is-active');
-        mobileMenu.classList.toggle('is-active');
-    });
-
-    mobBtn1.addEventListener('click', () => {
-        if (rgbBtn.style.display !== 'none') {
-            pickAlert.style.backgroundColor = '#ff2e63';
-            pickAlert.style.fontWeight = '700';
-            pickAlert.innerText = 'You are on RGB page';
-            pickAlert.style.boxShadow = 'rgba(229, 10, 72, 0.1) 0px 4px 12px';
-            pickAlert.classList.add('positive-copy');
-            setTimeout(() => pickAlert.classList.remove('positive-copy'), 3000);
-            menuBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
-        } else {
-            hexBtn.style.display = 'none';
-            hslBtn.style.display = 'none';
-            rgbBtn.style.display = 'block';
-            rgbBtn.innerText = 'Generate';
-
-            const rRgbNumber = randomRGBColor();
-
-            input.value = `${rRgbNumber};`;
-            input.style.color = rRgbNumber;
-            input.style.textShadow = `0px 1px 2px ${rRgbNumber}`;
-            body.style.backgroundColor = rRgbNumber;
-
-            pick.style.backgroundColor = '#2B2D2F';
-            pick.innerText = 'You picked RGB format';
-            pick.style.fontWeight = '700';
-            pick.style.boxShadow = 'rgb(0 0 0 / 10%) 0px 4px 12px';
-            pick.classList.add('positive-copy');
-            setTimeout(() => pick.classList.remove('positive-copy'), 3000);
-            menuBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
-        }
-    });
-
-    mobBtn2.addEventListener('click', () => {
-        if (hexBtn.style.display !== 'none') {
-            pickAlert.style.backgroundColor = '#ff2e63';
-            pickAlert.style.fontWeight = '700';
-            pickAlert.innerText = 'You are on HEX page';
-            pickAlert.style.boxShadow = 'rgba(229, 10, 72, 0.1) 0px 4px 12px';
-            pickAlert.classList.add('positive-copy');
-            setTimeout(() => pickAlert.classList.remove('positive-copy'), 3000);
-            menuBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
-        } else {
-            hslBtn.style.display = 'none';
-            rgbBtn.style.display = 'none';
-            hexBtn.style.display = 'block';
-            hexBtn.innerText = 'Generate';
-
-            const randomHex = randomHexColor();
-            const colorHex = hexArray[randomHex];
-
-            input.value = `${colorHex};`;
-            input.style.color = colorHex;
-            body.style.backgroundColor = colorHex;
-            input.style.textShadow = `0px 1px 2px ${colorHex}`;
-
-            pick.style.backgroundColor = '#2B2D2F';
-            pick.innerText = 'You picked HEX format';
-            pick.style.fontWeight = '700';
-            pick.style.boxShadow = 'rgb(0 0 0 / 10%) 0px 4px 12px';
-            pick.classList.add('positive-copy');
-            setTimeout(() => pick.classList.remove('positive-copy'), 3000);
-            menuBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
-        }
-    });
-
-    mobBtn3.addEventListener('click', () => {
-        if (hslBtn.style.display !== 'none') {
-            pickAlert.style.backgroundColor = '#ff2e63';
-            pickAlert.style.fontWeight = '700';
-            pickAlert.innerText = 'You are on HSL page';
-            pickAlert.style.boxShadow = 'rgba(229, 10, 72, 0.1) 0px 4px 12px';
-            pickAlert.classList.add('positive-copy');
-            setTimeout(() => pickAlert.classList.remove('positive-copy'), 3000);
-            menuBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
-        } else {
-            hexBtn.style.display = 'none';
-            rgbBtn.style.display = 'none';
-            hslBtn.style.display = 'block';
-            hslBtn.innerText = 'Generate';
-
-            const rHsLNumber = randomHslColor();
-
-            input.value = `${rHsLNumber};`;
-            input.style.color = rHsLNumber;
-            body.style.backgroundColor = rHsLNumber;
-
-            input.style.textShadow = `0px 1px 2px ${rHsLNumber}`;
-
-            pick.style.backgroundColor = '#2B2D2F';
-            pick.style.fontWeight = '700';
-            pick.innerText = 'You picked HSL format';
-            pick.style.boxShadow = 'rgb(0 0 0 / 10%) 0px 4px 12px';
-            pick.classList.add('positive-copy');
-            setTimeout(() => pick.classList.remove('positive-copy'), 3000);
-            menuBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
-        }
-    });
+    // Generate buttons
 
     rgbBtn.addEventListener('click', () => {
-        const rRgbNumber = randomRGBColor();
-
-        input.value = `${rRgbNumber};`;
-        input.style.color = rRgbNumber;
-        input.style.textShadow = `0px 1px 2px ${rRgbNumber}`;
-        body.style.backgroundColor = rRgbNumber;
+        generateRgbColor();
     });
 
     hexBtn.addEventListener('click', () => {
-        const randomHex = randomHexColor();
-        const colorHex = hexArray[randomHex];
-
-        input.value = `${colorHex};`;
-        input.style.color = colorHex;
-        body.style.backgroundColor = colorHex;
-        input.style.textShadow = `0px 1px 2px ${colorHex}`;
+        generateHexColor();
     });
 
     hslBtn.addEventListener("click", () => {
-        const rHsLNumber = randomHslColor();
-
-        input.value = `${rHsLNumber};`;
-        input.style.color = rHsLNumber;
-        body.style.backgroundColor = rHsLNumber;
-
-        input.style.textShadow = `0px 1px 2px ${rHsLNumber}`;
+        generateHslColor();
     });
 
-    rgbNav.addEventListener('click', () => {
-        if (rgbBtn.style.display !== 'none') {
-            pickAlert.style.backgroundColor = '#ff2e63';
-            pickAlert.style.fontWeight = '700';
-            pickAlert.innerText = 'You are on RGB page';
-            pickAlert.style.boxShadow = 'rgba(229, 10, 72, 0.1) 0px 4px 12px';
-            pickAlert.classList.add('positive-copy');
-            setTimeout(() => pickAlert.classList.remove('positive-copy'), 3000);
-        } else {
-            hexBtn.style.display = 'none';
-            hslBtn.style.display = 'none';
-            rgbBtn.style.display = 'block';
-            rgbBtn.innerText = 'Generate';
-
-            const rRgbNumber = randomRGBColor();
-
-            input.value = `${rRgbNumber};`;
-            input.style.color = rRgbNumber;
-            input.style.textShadow = `0px 1px 2px ${rRgbNumber}`;
-            body.style.backgroundColor = rRgbNumber;
-
-            pick.style.backgroundColor = '#2B2D2F';
-            pick.innerText = 'You picked RGB format';
-            pick.style.fontWeight = '700';
-            pick.style.boxShadow = 'rgb(0 0 0 / 10%) 0px 4px 12px';
-            pick.classList.add('positive-copy');
-            setTimeout(() => pick.classList.remove('positive-copy'), 3000);
-        }
-    });
-
-    hexNav.addEventListener('click', () => {
-        if (hexBtn.style.display !== 'none') {
-            pickAlert.style.backgroundColor = '#ff2e63';
-            pickAlert.style.fontWeight = '700';
-            pickAlert.innerText = 'You are on HEX page';
-            pickAlert.style.boxShadow = 'rgba(229, 10, 72, 0.1) 0px 4px 12px';
-            pickAlert.classList.add('positive-copy');
-            setTimeout(() => pickAlert.classList.remove('positive-copy'), 3000);
-        } else {
-            hslBtn.style.display = 'none';
-            rgbBtn.style.display = 'none';
-            hexBtn.style.display = 'block';
-            hexBtn.innerText = 'Generate';
-
-            const randomHex = randomHexColor();
-            const colorHex = hexArray[randomHex];
-
-            input.value = `${colorHex};`;
-            input.style.color = colorHex;
-            body.style.backgroundColor = colorHex;
-            input.style.textShadow = `0px 1px 2px ${colorHex}`;
-
-            pick.style.backgroundColor = '#2B2D2F';
-            pick.innerText = 'You picked HEX format';
-            pick.style.fontWeight = '700';
-            pick.style.boxShadow = 'rgb(0 0 0 / 10%) 0px 4px 12px';
-            pick.classList.add('positive-copy');
-            setTimeout(() => pick.classList.remove('positive-copy'), 3000);
-        }
-    });
-
-    hslNav.addEventListener('click', () => {
-        if (hslBtn.style.display !== 'none') {
-            pickAlert.style.backgroundColor = '#ff2e63';
-            pickAlert.style.fontWeight = '700';
-            pickAlert.innerText = 'You are on HSL page';
-            pickAlert.style.boxShadow = 'rgba(229, 10, 72, 0.1) 0px 4px 12px';
-            pickAlert.classList.add('positive-copy');
-            setTimeout(() => pickAlert.classList.remove('positive-copy'), 3000);
-        } else {
-            hexBtn.style.display = 'none';
-            rgbBtn.style.display = 'none';
-            hslBtn.style.display = 'block';
-            hslBtn.innerText = 'Generate';
-
-            const rHsLNumber = randomHslColor();
-
-            input.value = `${rHsLNumber};`;
-            input.style.color = rHsLNumber;
-            body.style.backgroundColor = rHsLNumber;
-
-            input.style.textShadow = `0px 1px 2px ${rHsLNumber}`;
-
-            pick.style.backgroundColor = '#2B2D2F';
-            pick.style.fontWeight = '700';
-            pick.innerText = 'You picked HSL format';
-            pick.style.boxShadow = 'rgb(0 0 0 / 10%) 0px 4px 12px';
-            pick.classList.add('positive-copy');
-            setTimeout(() => pick.classList.remove('positive-copy'), 3000);
-        }
-    });
+    // Color copy function
 
     copyImg.addEventListener('click', () => {
         input.select();
-            input.setSelectionRange(0, 99999);
-
-            const inputV = input.value;
-
-            navigator.clipboard.writeText(inputV);
-
-            copiedS.classList.add('positive-copy');
-            setTimeout(() => copiedS.classList.remove('positive-copy'), 3000);
+        input.setSelectionRange(0, input.length);
+        const inputV = input.value;
+        navigator.clipboard.writeText(inputV);
+        copyAlert.classList.add('copy-alert__block'); // Copy alert message
+        setTimeout(() => copyAlert.classList.remove('copy-alert__block'), 3000);
     });
 
-    function changeImage() {
+    copyImg.addEventListener('mouseenter', () => {
         copyImg.setAttribute('src', '/img/copy-imgwhite.png');
-    }
-
-    function changeImageBack() {
+    });
+    copyImg.addEventListener('mouseleave', () => {
         copyImg.setAttribute('src', '/img/copy-img.png');
-    }
-
-    logoText.addEventListener('mouseenter', () => {
-        const randomColor = randomRGBColor();
-        logoA.style.color = randomColor;
-        logoA.style.textShadow = `1px 1px 4px ${randomColor}`;
     });
-
-    logoText.addEventListener('mouseleave', () => {
-        logoA.style.color = '#00ADB5';
-        logoA.style.textShadow = '1px 1px 4px #00ADB5';
-    });
-
-    copyImg.addEventListener('mouseenter', changeImage);
-    copyImg.addEventListener('mouseleave', changeImageBack);
 });
