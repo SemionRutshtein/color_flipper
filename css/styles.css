@@ -377,12 +377,20 @@ main .content-block__buttons-item:after {
   }
 }
 
-.ovhidden {
+.overflow-hidden {
   overflow: hidden;
 }
 
-.displblock {
+.display-block {
   display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-iB {
+  display: inline-block !important;
 }
 
 .unselectable {

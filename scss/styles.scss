@@ -351,12 +351,20 @@ main {
 }
 
 // Other classes
-.ovhidden {
+.overflow-hidden {
     overflow: hidden;
 }
 
-.displblock {
+.display-block {
     display: block;
+}
+
+.display-none {
+    display: none;
+}
+
+.display-iB {
+    display: inline-block !important;
 }
 
 .unselectable {

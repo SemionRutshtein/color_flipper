@@ -12,6 +12,7 @@ window.addEventListener("DOMContentLoaded", () => {
         mobHexBtn = body.querySelector('.mob-hex'),
         mobHslBtn = body.querySelector('.mob-hsl'),
         input = body.querySelector('.content-block__header input'),
+        allButtons = body.querySelectorAll('button'),
         mainButtons = body.querySelectorAll('.content-block__buttons button'),
         mainRgbBtn = body.querySelector('.main-rgb'),
         mainHexBtn = body.querySelector('.main-hex'),
@@ -664,7 +665,7 @@ window.addEventListener("DOMContentLoaded", () => {
         "#FFC0CB",
     ];
 
-    // Random colors logic
+    // Random colors logic FULLY DONE
 
     function getRandomRGBColor() {
         const r = Math.floor(Math.random() * 256);
@@ -690,7 +691,7 @@ window.addEventListener("DOMContentLoaded", () => {
         return Math.floor(Math.random() * hexArray.length);
     }
 
-    // Random color generator
+    // Random color generator FULLY DONE
 
     function generateRgbColor() {
         const rRgbNumber = getRandomRGBColor();
@@ -721,20 +722,50 @@ window.addEventListener("DOMContentLoaded", () => {
         input.style.textShadow = `0px 1px 2px ${rHsLNumber}`;
     }
 
-    // Alerts
+    // Hamburger and Mobile menu functions
+    
+    function makeHambMobActive() {
+        hamburgerBtn.classList.toggle('is-active');
+        mobileMenu.classList.toggle('is-active');
+    }
+
+    // Alerts FULLY DONE
 
     function warningMessage() {
         warningAlert.classList.add('warning-alert__block');
         setTimeout(() => warningAlert.classList.remove('warning-alert__block'), 3000);
     }
 
-    function formatPickMessage(colorFormat) {
+    function formatPickedMessage(colorFormat) {
         pickAlert.innerText = `You picked ${colorFormat} format`;
         pickAlert.classList.add('pick-alert__block');
         setTimeout(() => pickAlert.classList.remove('pick-alert__block'), 3000);
     }
 
-    // Logo
+    // Appearance of buttons
+
+    function rgbBtnAppearance() {
+        mainHexBtn.style.display = 'none';
+        mainHslBtn.style.display = 'none';
+        mainRgbBtn.style.display = 'block';
+        mainRgbBtn.innerText = 'Generate';
+    }
+
+    function hexBtnAppearance() {
+        mainHslBtn.style.display = 'none';
+        mainRgbBtn.style.display = 'none';
+        mainHexBtn.style.display = 'block';
+        mainHexBtn.innerText = 'Generate';
+    }
+
+    function hslBtnAppearance() {
+        mainHexBtn.style.display = 'none';
+        mainRgbBtn.style.display = 'none';
+        mainHslBtn.style.display = 'block';
+        mainHslBtn.innerText = 'Generate';
+    }
+
+    // Logo FULLY DONE
 
     logo.addEventListener('mouseenter', () => {
         const randomColor = getRandomRGBColor();
@@ -749,24 +780,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // Nav menu
 
-    mainButtons.forEach(btn => { // nav menu appears when you go to one of the pages
-        btn.addEventListener('click', () => {
-            navButtons.classList.add('active');
-            navButtons.classList.add('fade');
-        });
-    });
-
     navRgbBtn.addEventListener('click', () => {
         if (mainRgbBtn.style.display !== 'none') {
             warningMessage();
         } else {
-            mainHexBtn.style.display = 'none';
-            mainHslBtn.style.display = 'none';
-            mainRgbBtn.style.display = 'block';
-            mainRgbBtn.innerText = 'Generate';
-
+            rgbBtnAppearance();
             generateRgbColor();
-            formatPickMessage('RGB');
+            formatPickedMessage('RGB');
         }
     });
 
@@ -774,13 +794,9 @@ window.addEventListener("DOMContentLoaded", () => {
         if (mainHexBtn.style.display !== 'none') {
             warningMessage();
         } else {
-            mainHslBtn.style.display = 'none';
-            mainRgbBtn.style.display = 'none';
-            mainHexBtn.style.display = 'block';
-            mainHexBtn.innerText = 'Generate';
-
+            hexBtnAppearance();
             generateHexColor();
-            formatPickMessage('HEX');
+            formatPickedMessage('HEX');
         }
     });
 
@@ -788,20 +804,16 @@ window.addEventListener("DOMContentLoaded", () => {
         if (mainHslBtn.style.display !== 'none') {
             warningMessage();
         } else {
-            mainHexBtn.style.display = 'none';
-            mainRgbBtn.style.display = 'none';
-            mainHslBtn.style.display = 'block';
-            mainHslBtn.innerText = 'Generate';
-
+            hslBtnAppearance();
             generateHslColor();
-            formatPickMessage('HSL');
+            formatPickedMessage('HSL');
         }
     });
 
     // Hamburger menu
 
     hamburgerBtn.addEventListener('click', function () {
-        body.classList.toggle('ovhidden');
+        body.classList.toggle('overflow-hidden');
         hamburgerBtn.classList.toggle('is-active');
         mobileMenu.classList.toggle('is-active');
     });
@@ -809,98 +821,75 @@ window.addEventListener("DOMContentLoaded", () => {
     mobRgbBtn.addEventListener('click', () => {
         if (mainRgbBtn.style.display !== 'none') {
             warningMessage();
-            hamburgerBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
         } else {
-            mainHexBtn.style.display = 'none';
-            mainHslBtn.style.display = 'none';
-            mainRgbBtn.style.display = 'block';
-            mainRgbBtn.innerText = 'Generate';
-
+            rgbBtnAppearance();
             generateRgbColor();
-            formatPickMessage('RGB');
-            hamburgerBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
+            formatPickedMessage('RGB');
         }
+
+        makeHambMobActive();
     });
 
     mobHexBtn.addEventListener('click', () => {
         if (mainHexBtn.style.display !== 'none') {
             warningMessage();
-            hamburgerBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
         } else {
-            mainHslBtn.style.display = 'none';
-            mainRgbBtn.style.display = 'none';
-            mainHexBtn.style.display = 'block';
-            mainHexBtn.innerText = 'Generate';
-
+            hexBtnAppearance();
             generateHexColor();
-            formatPickMessage('HEX');
-            hamburgerBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
+            formatPickedMessage('HEX');
         }
+
+        makeHambMobActive();
     });
 
     mobHslBtn.addEventListener('click', () => {
         if (mainHslBtn.style.display !== 'none') {
             warningMessage();
-            hamburgerBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
         } else {
-            mainHexBtn.style.display = 'none';
-            mainRgbBtn.style.display = 'none';
-            mainHslBtn.style.display = 'block';
-            mainHslBtn.innerText = 'Generate';
-
+            hslBtnAppearance();
             generateHslColor();
-            formatPickMessage('HSL');
-            hamburgerBtn.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-active');
+            formatPickedMessage('HSL');
         }
+
+        makeHambMobActive();
     });
 
     // Pick color format and hide other buttons
 
     mainRgbBtn.addEventListener('click', () => {
-        copyImg.style.display = 'inline-block';
-        mainHexBtn.style.display = 'none';
-        mainHslBtn.style.display = 'none';
-        mainRgbBtn.innerText = 'Generate';
-        hamburgerBtn.classList.add('displblock');
-    });
-
-    mainHexBtn.addEventListener('click', () => {
-        copyImg.style.display = 'inline-block';
-        mainRgbBtn.style.display = 'none';
-        mainHslBtn.style.display = 'none';
-        mainHexBtn.innerText = 'Generate';
-        hamburgerBtn.classList.add('displblock');
-    });
-
-    mainHslBtn.addEventListener('click', () => {
-        copyImg.style.display = 'inline-block';
-        mainHexBtn.style.display = 'none';
-        mainRgbBtn.style.display = 'none';
-        mainHslBtn.innerText = 'Generate';
-        hamburgerBtn.classList.add('displblock');
-    });
-
-    // Generate buttons
-
-    mainRgbBtn.addEventListener('click', () => {
         generateRgbColor();
+        rgbBtnAppearance();
+        hamburgerBtn.classList.add('display-block');
     });
 
     mainHexBtn.addEventListener('click', () => {
         generateHexColor();
+        hexBtnAppearance();
+        hamburgerBtn.classList.add('display-block');
     });
 
-    mainHslBtn.addEventListener("click", () => {
+    mainHslBtn.addEventListener('click', () => {
         generateHslColor();
+        hslBtnAppearance();
+        hamburgerBtn.classList.add('display-block');
     });
 
-    // Color copy function
+    // Generate buttons
+
+    mainButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            navButtons.classList.add('active'); // nav menu appears when you go to one of the pages
+            navButtons.classList.add('fade');
+        });
+    });
+
+    // Color copy section
+
+    allButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            copyImg.classList.add('display-iB');
+        });
+    });
 
     copyImg.addEventListener('click', () => {
         input.select();
